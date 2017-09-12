@@ -41,7 +41,7 @@ localport = Local port number for SSH tunnel (ex. 45678)
 `connect.bash` or `connect` (if you use a symlink) will present the user with a menu in which the user selects the connection option by entering the connection number.
 
 ```
-user@localhost $ connect
+$ connect
 ...
 ****************************
 *   SELECT HOST COMPUTER   *
@@ -51,4 +51,5 @@ user@localhost $ connect
 *                          *
 *  A) Add Entry            *
 ****************************
+Select option:
 ```
