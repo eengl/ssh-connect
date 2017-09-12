@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Bash shell script wrapper for connecting to NOAA/NCEP's VPN. The script uses `openconnect`, an open source Cisco AnyConnect SSL VPN compatible client. Normally, establishing a VPN connection via `openconnect` requires the user to have sudo access. This package will also install sudoer rules to allow the user to run `ncepvpn` and `openconnect` without sudo access.
+`connect.bash` is an SSH shell script wrapper that provides a menu of connection choices (added by the user).
 
 ## Supported Operating Systems
 
