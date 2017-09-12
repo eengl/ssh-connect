@@ -6,15 +6,15 @@
 # ---------------------------------------------------------------------------------------- 
 add_entry ()
 {
-   echo " * Adding entry to ~/.noaaconnectrc ..."
+   echo " * Adding entry to ~/.sshconnectrc ..."
    read -rep "Connection Name: " connname
    read -rep "Username: " username
    read -rep "Hostname: " hostname
    read -rep "Hostname for port forwarding: " pfhostname
    read -rep "Port to use: " portnum
-   nlines=$(( $(cat $HOME/.noaaconnectrc | wc -l) + 1 ))
+   nlines=$(( $(cat $HOME/.sshconnectrc | wc -l) + 1 ))
    if [ -z $pfhostname ]; then pfhostname=$hostname; fi
-   echo "$nlines:$connname:$username:$hostname:$pfhostname:$portnum" >> $HOME/.noaaconnectrc
+   echo "$nlines:$connname:$username:$hostname:$pfhostname:$portnum" >> $HOME/.sshconnectrc
    read -rep "Do you want to add another entry? [y|n]: " response
    case $response in
       [Yy]*) add_entry ;;
@@ -52,7 +52,7 @@ print_menu ()
       num=$(echo "$line" | cut -d":" -f 1)
       con=$(echo "$line" | cut -d":" -f 2 | sed 's/\"//g')
       printf "* %2d) %-20s *\n" $num "$con"
-   done < $HOME/.noaaconnectrc
+   done < $HOME/.sshconnectrc
    echo "*                          *"
    echo "*  A) Add entry            *"
    echo "****************************"
@@ -61,9 +61,9 @@ print_menu ()
 # ---------------------------------------------------------------------------------------- 
 # Main Script
 # ---------------------------------------------------------------------------------------- 
-if [ ! -f $HOME/.noaaconnectrc ]; then
-   echo " * Creating ~/.noaaconnectrc ..."
-   echo "" > $HOME/.noaaconnectrc
+if [ ! -f $HOME/.sshconnectrc ]; then
+   echo " * Creating ~/.sshconnectrc ..."
+   echo "" > $HOME/.sshconnectrc
    add_entry
 fi
 
@@ -73,7 +73,7 @@ read -rep "Select option: " selection
 if [[ $selection == "A" ]]; then
    add_entry
 else
-   line=$(grep ^$selection $HOME/.noaaconnectrc)
+   line=$(grep ^$selection $HOME/.sshconnectrc)
    user=$(echo $line | cut -d":" -f 3)
    host=$(echo $line | cut -d":" -f 4)
    porthost=$(echo $line | cut -d":" -f 5)
