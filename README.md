@@ -34,7 +34,7 @@ localport = Local port number for SSH tunnel (ex. 45678)
 
 * Clone or download `ssh-connect` package
 * Copy `connect.bash` to ~/bin or another directory that is in your $PATH
-* [OPTIONAL] Create symlink: `ln -s connect.bash connect`
+* Create symlink: `ln -s connect.bash connect` __[OPTIONAL]__
 
 ## Usage
 
