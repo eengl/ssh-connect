@@ -23,7 +23,7 @@ localport = Local port number for SSH tunnel (ex. 45678)
 
 ## Supported Operating Systems
 
-* Linux/macOS/UNIX with Bash and SSH
+* Linux, macOS, or UNIX with Bash and SSH
 
 ## Software Dependencies
 
