@@ -1,12 +1,21 @@
 #!/usr/bin/env bash
 #set -x
+# ---------------------------------------------------------------------------------------- 
+# 
+# ---------------------------------------------------------------------------------------- 
 
 # ---------------------------------------------------------------------------------------- 
-# Function: add_entry -
+# Define the configuration file
+# ---------------------------------------------------------------------------------------- 
+CONFIGFILE=~/.sshconnectrc
+
+# ---------------------------------------------------------------------------------------- 
+# Function: add_entry - Provides a series of prompts for adding a connection entry to the
+# config file.
 # ---------------------------------------------------------------------------------------- 
 add_entry ()
 {
-   echo " * Adding entry to ~/.sshconnectrc ..."
+   echo " * Adding entry to $(echo $CONFIGFILE)..."
    read -rep "Connection Name: " connname
    read -rep "Username: " username
    read -rep "Hostname: " hostname
@@ -14,7 +23,7 @@ add_entry ()
    read -rep "Port to use: " portnum
    nlines=$(( $(cat $HOME/.sshconnectrc | wc -l) + 1 ))
    if [ -z $pfhostname ]; then pfhostname=$hostname; fi
-   echo "$nlines:$connname:$username:$hostname:$pfhostname:$portnum" >> $HOME/.sshconnectrc
+   echo "$nlines:$connname:$username:$hostname:$pfhostname:$portnum" >> $CONFIGFILE
    read -rep "Do you want to add another entry? [y|n]: " response
    case $response in
       [Yy]*) add_entry ;;
@@ -52,7 +61,7 @@ print_menu ()
       num=$(echo "$line" | cut -d":" -f 1)
       con=$(echo "$line" | cut -d":" -f 2 | sed 's/\"//g')
       printf "* %2d) %-20s *\n" $num "$con"
-   done < $HOME/.sshconnectrc
+   done < $CONFIGFILE
    echo "*                          *"
    echo "*  A) Add entry            *"
    echo "****************************"
@@ -61,9 +70,9 @@ print_menu ()
 # ---------------------------------------------------------------------------------------- 
 # Main Script
 # ---------------------------------------------------------------------------------------- 
-if [ ! -f $HOME/.sshconnectrc ]; then
-   echo " * Creating ~/.sshconnectrc ..."
-   echo "" > $HOME/.sshconnectrc
+if [ ! -f $CONFIGFILE ]; then
+   echo " * Creating $(echo $CONFIGFILE) ..."
+   echo "" > $CONFIGFILE
    add_entry
 fi
 
@@ -73,7 +82,7 @@ read -rep "Select option: " selection
 if [[ $selection == "A" ]]; then
    add_entry
 else
-   line=$(grep ^$selection $HOME/.sshconnectrc)
+   line=$(grep ^$selection $CONFIGFILE)
    user=$(echo $line | cut -d":" -f 3)
    host=$(echo $line | cut -d":" -f 4)
    porthost=$(echo $line | cut -d":" -f 5)
