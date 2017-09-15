@@ -42,10 +42,10 @@ __NOTE:__ SSH access to some remote systems require a bastion host login then th
 
 MasterControl is a feature of SSH that allows successive connections to a host to "piggyback" off of the initial connection.  There are pros and cons to this described [here](https://www.anchor.com.au/blog/2010/02/ssh-controlmaster-the-good-the-bad-the-ugly/).  Insert the following textat the top in your SSH config file (~/.ssh/config)
 
-'''
+```
 ControlMaster auto
 ControlPath ~/.ssh/tmp/%h_%p_%r
-'''
+```
 
 ## Usage
 
