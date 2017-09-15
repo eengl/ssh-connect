@@ -21,6 +21,8 @@ tunnelhostname = Hostname in which to establish a tunnel (ex. servera.com)
 
 localport = Local port number for SSH tunnel (ex. 45678)
 
+Users can also create/modify ~/.sshconnectrc on their own with a text editor.
+
 __NOTE:__ SSH access to some remote systems require a bastion host login then the user is redirected to a host of their choice.  In these situations, `hostname` would be the bastion host and `tunnelhostname` would be a destination host.
 
 ## Supported Operating Systems
