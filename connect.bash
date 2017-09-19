@@ -1,13 +1,20 @@
 #!/usr/bin/env bash
 #set -x
-# ---------------------------------------------------------------------------------------- 
-# 
-# ---------------------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------------------
+#
+#  Script: connect.bash
+#
+# Purpose: Provide an on-screen menu for SSH connections.
+#
+# History:  9/2017 - Created. Adapted from previous versions writted in Bash and Python.
+#
+# ----------------------------------------------------------------------------------------
 
 # ---------------------------------------------------------------------------------------- 
 # Define the configuration file
 # ---------------------------------------------------------------------------------------- 
 CONFIGFILE=~/.sshconnectrc
+NETSTAT=$(which netstat)
 
 # ---------------------------------------------------------------------------------------- 
 # Function: add_entry - Provides a series of prompts for adding a connection entry to the
@@ -33,21 +40,26 @@ add_entry ()
 }
 
 # ---------------------------------------------------------------------------------------- 
-# Function: check_port -  
+# Function: check_port - to check if a port is open and listening. This function returns
+#                        0 is the port is open and listening and 1 otherwise.
 # ---------------------------------------------------------------------------------------- 
 check_port ()
 {
+   if [ ! -x $NETSTAT ]; then
+      echo " * error: netstat not found."
+      exit 1
+   fi
    if [[ $(uname -s) == "Darwin" ]]; then
       # FreeBSD or macOS
-      netstat -anp tcp 2>/dev/null | grep LISTEN | grep $portnum 1> /dev/null 2>&1
+      $NETSTAT -anp tcp 2>/dev/null | grep LISTEN | grep $portnum 1> /dev/null 2>&1
    elif [[ $(uname -s) == "Linux" ]]; then
       # GNU Linux
-      netstat -tulpn 2>/dev/null | grep LISTEN | grep $portnum 1> /dev/null 2>&1
+      $NETSTAT -tulpn 2>/dev/null | grep LISTEN | grep $portnum 1> /dev/null 2>&1
    fi
    echo $?
 }
 # ---------------------------------------------------------------------------------------- 
-# Function: print_menu - 
+# Function: print_menu - Print the on-screen menu of connection entries
 # ---------------------------------------------------------------------------------------- 
 print_menu ()
 {
