@@ -48,6 +48,7 @@ MasterControl is a feature of SSH that allows successive connections to a host t
 ControlMaster auto
 ControlPath ~/.ssh/tmp/%h_%p_%r
 ```
+ControlPath file template %h = hostname; %p = port; %r = remote username
 
 ## Usage
 
