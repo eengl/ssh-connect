@@ -28,7 +28,8 @@ add_entry ()
    read -rep "Hostname: " hostname
    read -rep "Hostname for port forwarding: " pfhostname
    read -rep "Port to use: " portnum
-   nlines=$(( $(cat $HOME/.sshconnectrc | wc -l) + 1 ))
+   nlines=$(cat $HOME/.sshconnectrc | wc -l)
+   nlines=$(($nlines+1))
    if [ -z $pfhostname ]; then pfhostname=$hostname; fi
    echo "$nlines:$connname:$username:$hostname:$pfhostname:$portnum" >> $CONFIGFILE
    read -rep "Do you want to add another entry? [y|n]: " response
