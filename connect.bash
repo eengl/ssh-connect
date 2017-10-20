@@ -85,7 +85,7 @@ print_menu ()
 # ---------------------------------------------------------------------------------------- 
 if [ ! -f $CONFIGFILE ]; then
    echo " * Creating $(echo $CONFIGFILE) ..."
-   echo "" > $CONFIGFILE
+   touch $CONFIGFILE
    add_entry
 else
    if [ $(cat $CONFIGFILE | wc -l) -eq 0 ]; then
