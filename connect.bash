@@ -87,6 +87,10 @@ if [ ! -f $CONFIGFILE ]; then
    echo " * Creating $(echo $CONFIGFILE) ..."
    echo "" > $CONFIGFILE
    add_entry
+else
+   if [ $(cat $CONFIGFILE | wc -l) -eq 0 ]; then
+      add_entry
+   fi
 fi
 
 print_menu
