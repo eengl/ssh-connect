@@ -108,7 +108,7 @@ else
       # Port NOT in use, so port forward here
       echo " * Port $portnum is available..."
       echo " * Connecting to $host binding port $portnum..."
-      sshportfwd="-L $portnum:$porthost:22"
+      sshportfwd="-4 -L $portnum:$porthost:22"
       ssh $sshportfwd $user@$host
    fi
 fi
