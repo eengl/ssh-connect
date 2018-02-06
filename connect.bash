@@ -7,6 +7,8 @@
 # Purpose: Provide an on-screen menu for SSH connections.
 #
 # History:  9/2017 - Created. Adapted from previous versions writted in Bash and Python.
+#           2/2018 - Updated to use bash builtin exec to execute ssh commands so that
+#                    become its own process independent of this script.
 #
 # ----------------------------------------------------------------------------------------
 
@@ -108,13 +110,13 @@ else
    port_in_use=$(check_port)
    if [ $port_in_use -eq 0 ]; then
       # Port is in use
-      ssh $user@$host
+      exec ssh $user@$host
    elif [ $port_in_use -eq 1 ];then
       # Port NOT in use, so port forward here
       echo " * Port $portnum is available..."
       echo " * Connecting to $host binding port $portnum..."
       sshportfwd="-4 -L $portnum:$porthost:22"
-      ssh $sshportfwd $user@$host
+      exec ssh $sshportfwd $user@$host
    fi
 fi
 
