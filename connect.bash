@@ -9,6 +9,7 @@
 # History:  9/2017 - Created. Adapted from previous versions writted in Bash and Python.
 #           2/2018 - Updated to use bash builtin exec to execute ssh commands so that
 #                    become its own process independent of this script.
+#           3/2018 - Expanded width of menu to fit longer menu names.
 #
 # ----------------------------------------------------------------------------------------
 
@@ -68,18 +69,18 @@ print_menu ()
 {
    clear
    echo ""
-   echo "****************************"
-   echo "*   SELECT HOST COMPUTER   *"
-   echo "*          ****            *"
+   echo "**************************************"
+   echo "*        SELECT HOST COMPUTER        *"
+   echo "*               ****                 *"
    while read -r line
    do
       num=$(echo "$line" | cut -d":" -f 1)
       con=$(echo "$line" | cut -d":" -f 2 | sed 's/\"//g')
-      printf "* %2d) %-20s *\n" $num "$con"
+      printf "* %2d) %-30s *\n" $num "$con"
    done < $CONFIGFILE
-   echo "*                          *"
-   echo "*  A) Add entry            *"
-   echo "****************************"
+   echo "*                                    *"
+   echo "*  A) Add entry                      *"
+   echo "**************************************"
 }
 
 # ---------------------------------------------------------------------------------------- 
