@@ -107,7 +107,10 @@ else
    host=$(echo $line | cut -d":" -f 4)
    porthost=$(echo $line | cut -d":" -f 5)
    portnum=$(echo $line | cut -d":" -f 6)
-   usestoken=${$(echo $line | cut -d":" -f 7):-false}
+   usestoken=$(echo $line | cut -d":" -f 7)
+
+   # Check for blank string in ~/.sshconnectrc
+   if [ "x$usestoken" == "x" ]; then usestoken=false; fi
 
    port_in_use=$(check_port)
    if [ $port_in_use -eq 0 ]; then
