@@ -7,7 +7,7 @@
 Connection options are stored in a comma-delimited config file `~/.sshconnectrc` that has the following format:
 
 ```
-n:"title":loginname:hostname:tunnelhostname:localport:
+n:"title":loginname:hostname:tunnelhostname:localport:usestoken
 ```
 n = Connection number (ex. 1)
 
@@ -21,6 +21,8 @@ tunnelhostname = Hostname in which to establish a tunnel (ex. servera.com)
 
 localport = Local port number for SSH tunnel (ex. 45678)
 
+usestoken = Set to `true` or `false` if the connection requires an RSA Token Passcode.
+
 Users can also create/modify ~/.sshconnectrc on their own with a text editor.
 
 __NOTE:__ SSH access to some remote systems require a bastion host login then the user is redirected to a host of their choice.  In these situations, `hostname` would be the bastion host and `tunnelhostname` would be a destination host.
@@ -33,6 +35,7 @@ __NOTE:__ SSH access to some remote systems require a bastion host login then th
 
 * bash 
 * openssh
+* stoken **(OPTIONAL)**
 
 ## Installation Instructions
 
