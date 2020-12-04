@@ -107,6 +107,7 @@ else
    host=$(echo $line | cut -d":" -f 4)
    porthost=$(echo $line | cut -d":" -f 5)
    portnum=$(echo $line | cut -d":" -f 6)
+   usestoken=${$(echo $line | cut -d":" -f 7):-false}
 
    port_in_use=$(check_port)
    if [ $port_in_use -eq 0 ]; then
@@ -116,6 +117,10 @@ else
       # Port NOT in use, so port forward here
       echo " * Port $portnum is available..."
       echo " * Connecting to $host binding port $portnum..."
+      if [ -f $HOME/.stokenrc ] && [ -x $(which stoken) ] && \
+         [ "$usestoken" == "true" ] ; then
+         echo " * RSA Token Passcode: $(stoken)"
+      fi
       sshportfwd="-4 -L $portnum:$porthost:22"
       exec ssh $sshportfwd $user@$host
    fi
