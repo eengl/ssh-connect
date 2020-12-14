@@ -10,12 +10,14 @@
 #           2/2018 - Updated to use bash builtin exec to execute ssh commands so that
 #                    become its own process independent of this script.
 #           3/2018 - Expanded width of menu to fit longer menu names.
+#          12/2020 - Added ability to print user's RSA Token passcode via stoken.
 #
 # ----------------------------------------------------------------------------------------
 
 # ---------------------------------------------------------------------------------------- 
 # Define the configuration file
-# ---------------------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------------------
+VERSION='1.3.0'
 CONFIGFILE=~/.sshconnectrc
 NETSTAT=$(which netstat)
 
@@ -122,7 +124,7 @@ else
       echo " * Connecting to $host binding port $portnum..."
       if [ -f $HOME/.stokenrc ] && [ -x $(which stoken) ] && \
          [ "$usestoken" == "true" ] ; then
-         echo " * RSA Token Passcode: $(stoken)"
+         echo " * RSA Token Passcodes: current: $(stoken) next: $(stoken --next)"
       fi
       sshportfwd="-4 -L $portnum:$porthost:22"
       exec ssh $sshportfwd $user@$host
