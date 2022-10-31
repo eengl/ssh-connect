@@ -4,7 +4,7 @@
 
 `connect.bash` is a shell script wrapper for SSH connections. It provides an in-terminal menu of connection choices that can be added by the user.  The script has the ability to perform SSH tunneling (upon first connection to a given host).  Succeeding connections to a host will then use the tunnel established in the first connection.
 
-Connection options are stored in a comma-delimited config file `~/.sshconnectrc` that has the following format:
+Connection options are stored in a colon-delimited config file `~/.sshconnectrc` that has the following format:
 
 ```
 number:"title":loginname:hostname:tunnelhostname:localport:usestoken
